@@ -1,7 +1,8 @@
 /**
- * 任何一個ugly number都是前面的ugly number乘上2或3或5
- * 參考: https://www.geeksforgeeks.org/ugly-numbers/ 的法二 
- * Time complexity: O(n)
+ * 任何一個ugly number都是前面的ugly number乘上任何一個primes
+ * 一樣的概念, 只是多一個next[]存ugly number的candidate, 這樣可以少跑一次迴圈.
+ * 
+ * Time complexity: O(N*M) (primes.size() = M)
  * Space complexity: O(n)
  */
 
