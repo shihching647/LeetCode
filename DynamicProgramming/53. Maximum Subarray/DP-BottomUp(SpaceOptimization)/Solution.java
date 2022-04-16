@@ -1,6 +1,6 @@
 /**
  * DP(Bottom up)
- * dp[i] 定義為: 從0到i的array中, subarray的最大和.
+ * dp[i] 定義為: 從0到i的array中, 包含i元素的, subarray的最大和.
  * 
  * 參考: https://www.youtube.com/watch?v=7J5rs56JBs8&ab_channel=HuaHua
  * Time complexity: O(n)
@@ -9,7 +9,7 @@
 
 class Solution {
     public int maxSubArray(int[] nums) {
-        // dp[i] 定義為: 從0到i的array中, subarray的最大和.
+        // dp[i] 定義為: 從0到i的array中, 包含i元素的, subarray的最大和.
         int dp = nums[0]; 
         int max = dp;
         for (int i = 1; i < nums.length; i++) {
