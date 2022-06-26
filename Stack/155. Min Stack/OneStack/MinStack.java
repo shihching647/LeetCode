@@ -16,7 +16,7 @@ class MinStack {
     }
 
     public void push(int val) {
-        // 當val <= min時, 多放一個當前的min到stack裏, 當作紀錄
+        // 當val <= min時, 多放一個當前的min到stack裏, 當作紀錄(這邊不能只用小於，否則push [0, 1, 0]再pop()後, min會變成1)
         if (val <= min) {
             stack.push(min);
             min = val;
