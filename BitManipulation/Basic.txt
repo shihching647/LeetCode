@@ -1,0 +1,12 @@
+1. Sign Magnitude Form, 1's Complement, 2's Complement
+
+Sign Magnitude Form: (0有兩種表示法)
+要由+x得到-x, 把最前面那個bit(MSB)從0換成1
+
+1's Complement:(0有兩種表示法)
+要由+x得到-x, 把0,1互換(~x, 或是1s - x = -x)
+
+2's Complement: (0只有一種表示法)
+得到1's Complement再加1
+
+https://www.youtube.com/watch?v=MuUnffIpX7Y&ab_channel=ALLABOUTELECTRONICS
