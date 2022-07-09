@@ -1,46 +1,33 @@
 /**
- * 先做binary search找到該插入的位置, 插入後在做merge intervals
+ * 與56題類似, 輪詢intervals, 每次順便檢查是否為newInterval要插入的位置
  *
  * Time complexity: O(n)
  * Space complexity: O(n)
  */
+
 class Solution {
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        int n = intervals.length;
-        if (n == 0) 
-            return new int[][]{newInterval};
-
-        // binary search and insert
-        int[][] temp = new int[n + 1][2];
-        int j = binarySearch(intervals, newInterval[0]);
-        for (int i = 0; i < temp.length; i++) {
-            if (i < j) temp[i] = intervals[i];
-            else if (i == j) temp[i] = newInterval;
-            else temp[i] = intervals[i - 1]; 
-        }
-
-        // merge intervals
         LinkedList<int[]> result = new LinkedList<>();
-        for (int[] interval : temp) {
-            if (result.isEmpty() || result.getLast()[1] < interval[0]) {
-                result.add(interval);
-            } else {
-                result.getLast()[1] = Math.max(result.getLast()[1], interval[1]);
+        for (int i = 0; i < intervals.length; i++) {
+            int[] insertInterval = intervals[i];
+            if (newInterval != null && intervals[i][0] > newInterval[0]) {
+                insertInterval = newInterval;
+                i--;
+                newInterval = null;
             }
+            merge(result, insertInterval);
+        }
+        if (newInterval != null) {
+            merge(result, newInterval);
         }
         return result.toArray(new int[result.size()][2]);
     }
-
-    private int binarySearch(int[][] intervals, int startEnd) {
-        int i = 0;
-        int j = intervals.length - 1;
-        while (i <= j) {
-            int mid = (i + j) / 2;
-            int comp = Integer.compare(startEnd, intervals[mid][0]);
-            if (comp == 0) return mid;
-            else if (comp < 0) j = mid - 1;
-            else i = mid + 1;
+    
+    private void merge(LinkedList<int[]> result, int[] insertInterval) {
+        if (result.isEmpty() || result.getLast()[1] < insertInterval[0]) {
+            result.add(insertInterval);
+        } else {
+            result.getLast()[1] = Math.max(result.getLast()[1], insertInterval[1]);
         }
-        return i;
     }
 }
