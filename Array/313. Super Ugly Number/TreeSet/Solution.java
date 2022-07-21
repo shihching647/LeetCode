@@ -7,17 +7,18 @@
 
 class Solution {
     public int nthSuperUglyNumber(int n, int[] primes) {
-        int count = 0;
         TreeSet<Long> set = new TreeSet<>();
+        int i = 1;
         set.add(1L);
-        long num = 1;
-        while (count < n) {
-            num = set.pollFirst();
-            for (int i = 0; i < primes.length; i++) {
-                set.add(num * primes[i]);
+        
+        while (i < n) {
+            long cur = set.pollFirst();
+            for (int j = 0; j < primes.length; j++) {
+                set.add(primes[j] * cur);
             }
-            count++;
+            i++;
         }
-        return (int) num;
+        
+        return set.pollFirst().intValue();
     }
 }

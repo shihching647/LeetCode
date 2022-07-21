@@ -7,31 +7,28 @@
 
 class Solution {
     public int nthSuperUglyNumber(int n, int[] primes) {
-        int size = primes.length;
-        int[] next = primes.clone();
-        int[] index = new int[size];
-        int[] nums = new int[n];
-        nums[0] = 1;
+        int[] dp = new int[n];
+        dp[0] = 1;
+        int[] index = new int[primes.length];
         for (int i = 1; i < n; i++) {
-            nums[i] = min(next); // 找最小的ugly number
-            getNextNum(nums[i], nums, index, next, primes); // 把所有與ugly number相等的index都+1
+            dp[i] = getNext(primes, index, dp);
+            forward(primes, index, dp, dp[i]);
         }
-        return nums[n - 1];
+        return dp[n - 1];
     }
     
-    private int min(int[] a) {
-        int min = a[0];
-        for (int i = 1; i < a.length; i++) {
-            min = Math.min(min, a[i]);
-        }
+    private int getNext(int[] primes, int[] index, int[] dp) {
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < primes.length; i++)
+            if (primes[i] * dp[index[i]] > 0)
+                min = Math.min(min, primes[i] * dp[index[i]]);
         return min;
     }
     
-    private void getNextNum(int min, int[] nums, int[] index, int[] next, int[] primes) {
-        for (int i = 0; i < next.length; i++) {
-            if (min == next[i]) {
+    private void forward(int[] primes, int[] index, int[] dp, int cur) {
+        for (int i = 0; i < primes.length; i++) {
+            if (primes[i] * dp[index[i]] == cur) {
                 index[i]++;
-                next[i] = nums[index[i]] * primes[i];
             }
         }
     }

@@ -8,22 +8,25 @@
 
 class Solution {
     public int nthSuperUglyNumber(int n, int[] primes) {
-        int[] nums = new int[n];
+        int[] dp = new int[n];
         int[] index = new int[primes.length];
         int[] next = new int[primes.length];
+        int ugly = 1;
         Arrays.fill(next, 1);
-        int ugly = 1; //next ugly
         
         for (int i = 0; i < n; i++) {
-            nums[i] = ugly;
+            dp[i] = ugly;
             ugly = Integer.MAX_VALUE;
             for (int j = 0; j < primes.length; j++) {
-                if (next[j] == nums[i]) {
-                    next[j] = primes[j] * nums[index[j]++];
+                if (primes[j] * dp[index[j]] > 0) {
+                    if (dp[i] == next[j]) {
+                        next[j] = primes[j] * dp[index[j]++];
+                    }
+                    ugly = Math.min(ugly, next[j]);
                 }
-                ugly = Math.min(ugly, next[j]);
             }
         }
-        return nums[n - 1];
+        
+        return dp[n - 1];
     }
 }
