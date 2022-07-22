@@ -16,6 +16,7 @@
     }
     return lo;
  * 
+ * 參考:https://www.youtube.com/watch?v=gj4JevBj8-Y&ab_channel=HuaHua
  * Time complexity: O(logN)
  * Space complexity: O(1)
  */
