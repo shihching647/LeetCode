@@ -1,7 +1,7 @@
 /**
  * Run DFS, 每次run都用map紀錄，起點到該點的距離，
  * 當發現再visit一次時，即發現cycle，cycle length = d - 前一次的d
- *
+ * (distanceMap一定要用HashMap, 用array的話會TLE, 不知道為什麼)
  *
  * 參考:https://www.youtube.com/watch?v=vc_kz2M-jw4&ab_channel=CodewithAlisha 
  * Time complexity: O(N)
